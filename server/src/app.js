@@ -2,6 +2,7 @@
 import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
+import planRoutes from "./routes/plan.routes.js";
 
 const app = express();
 
@@ -24,5 +25,7 @@ app.get("/", (req, res) => {
   res.send("AI Study Planner Backend Running");
 });
 
+
+app.use("/api/plans", planRoutes);
 
 export default app;
