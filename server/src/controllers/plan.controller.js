@@ -1,5 +1,6 @@
 import { Plan } from "../models/plan.model.js";
 import { generateFakePlan } from "../utils/aiHelper.js";
+import mongoose from "mongoose";
 
 // CREATE PLAN
 export const createPlan = async (req, res) => {
@@ -10,11 +11,16 @@ export const createPlan = async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
+    // Validate and convert userId to ObjectId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid userId format" });
+    }
+
     // Generate fake AI study plan
     const planText = generateFakePlan(subject, hoursPerDay, difficulty);
 
     const newPlan = await Plan.create({
-      userId,
+      userId: new mongoose.Types.ObjectId(userId),
       subject,
       hoursPerDay,
       difficulty,
@@ -35,7 +41,12 @@ export const getUserPlans = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const plans = await Plan.find({ userId }).sort({ createdAt: -1 });
+    // Validate userId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid userId format" });
+    }
+
+    const plans = await Plan.find({ userId: new mongoose.Types.ObjectId(userId) }).sort({ createdAt: -1 });
 
     return res.status(200).json(plans);
   } catch (error) {
