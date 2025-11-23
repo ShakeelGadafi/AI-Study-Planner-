@@ -63,3 +63,18 @@ export const login = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+// GET ALL USERS
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, { _id: 1, name: 1, email: 1 }).sort({ createdAt: -1 });
+
+    res.json({
+      message: "Users retrieved successfully",
+      total: users.length,
+      users: users,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
