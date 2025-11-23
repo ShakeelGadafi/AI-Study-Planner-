@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import '../styles/AuthPage.css';
+import Navbar from '../components/Navbar';
+import AuthForm from '../components/AuthForm';
+import Alert from '../components/Alert';
 
 const AuthPage = ({ onLogin, onNavigate }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -19,6 +22,12 @@ const AuthPage = ({ onLogin, onNavigate }) => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleToggle = () => {
+    setIsLogin(!isLogin);
+    setError('');
+    setFormData({ name: '', email: '', password: '' });
   };
 
   const handleSubmit = async (e) => {
@@ -58,82 +67,18 @@ const AuthPage = ({ onLogin, onNavigate }) => {
 
   return (
     <div className="auth-page">
-      <nav className="navbar">
-        <div className="navbar-brand" onClick={() => onNavigate('home')} style={{ cursor: 'pointer' }}>
-          🎓 AI Study Planner
-        </div>
-      </nav>
+      <Navbar onNavigate={onNavigate} onGetStarted={() => onNavigate('home')} />
 
       <div className="auth-container">
-        <div className="auth-card">
-          <h2>{isLogin ? 'Login' : 'Create Account'}</h2>
-          <p className="auth-subtitle">
-            {isLogin ? "Don't have an account? " : 'Already have an account? '}
-            <button 
-              className="toggle-btn"
-              onClick={() => {
-                setIsLogin(!isLogin);
-                setError('');
-                setFormData({ name: '', email: '', password: '' });
-              }}
-            >
-              {isLogin ? 'Sign Up' : 'Login'}
-            </button>
-          </p>
-
-          {error && <div className="alert alert-error">{error}</div>}
-
-          <form onSubmit={handleSubmit}>
-            {!isLogin && (
-              <div className="form-group">
-                <label htmlFor="name">Full Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Enter your full name"
-                  required
-                />
-              </div>
-            )}
-
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Enter your email"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter your password"
-                required
-              />
-            </div>
-
-            <button 
-              type="submit" 
-              className="btn btn-primary btn-block"
-              disabled={loading}
-            >
-              {loading ? 'Loading...' : (isLogin ? 'Login' : 'Sign Up')}
-            </button>
-          </form>
-        </div>
+        {error && <Alert type="error" message={error} />}
+        <AuthForm
+          isLogin={isLogin}
+          formData={formData}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+          loading={loading}
+          onToggle={handleToggle}
+        />
       </div>
     </div>
   );

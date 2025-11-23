@@ -1,17 +1,69 @@
 import '../styles/HomePage.css';
+import Navbar from '../components/Navbar';
+import BenefitCard from '../components/BenefitCard';
+import FeatureItem from '../components/FeatureItem';
 
 const HomePage = ({ onNavigate }) => {
+  const benefits = [
+    {
+      icon: '🎯',
+      title: 'Personalized Plans',
+      description: 'AI-generated study plans tailored specifically to your subject, pace, and difficulty level'
+    },
+    {
+      icon: '⏱️',
+      title: 'Smart Time Management',
+      description: 'Optimize your study hours with intelligent scheduling based on your availability'
+    },
+    {
+      icon: '📈',
+      title: 'Track Progress',
+      description: 'Monitor your learning journey and stay motivated with visual progress tracking'
+    },
+    {
+      icon: '🔄',
+      title: 'Adaptive Learning',
+      description: 'Plans adapt to your learning pace and difficulty preferences for better results'
+    },
+    {
+      icon: '💡',
+      title: 'Expert Insights',
+      description: 'Leverage AI-powered insights to identify knowledge gaps and focus on key areas'
+    },
+    {
+      icon: '🚀',
+      title: 'Boost Performance',
+      description: 'Scientifically designed study methods to maximize retention and understanding'
+    }
+  ];
+
+  const features = [
+    {
+      icon: '📚',
+      title: 'Custom Study Plans',
+      description: 'Create unlimited study plans for any subject with customizable difficulty levels'
+    },
+    {
+      icon: '🤖',
+      title: 'AI-Powered Recommendations',
+      description: 'Get intelligent suggestions based on your study habits and performance'
+    },
+    {
+      icon: '📊',
+      title: 'Analytics Dashboard',
+      description: 'View detailed analytics of your study sessions and performance metrics'
+    },
+    {
+      icon: '🔐',
+      title: 'Secure & Private',
+      description: 'Your data is encrypted and secure with enterprise-grade security'
+    }
+  ];
+
   return (
     <div className="home-page">
       {/* Navigation */}
-      <nav className="navbar">
-        <div className="navbar-brand">🎓 AI Study Planner</div>
-        <div className="navbar-links">
-          <button className="btn btn-primary" onClick={() => onNavigate('auth')}>
-            Get Started
-          </button>
-        </div>
-      </nav>
+      <Navbar onNavigate={onNavigate} onGetStarted={() => onNavigate('auth')} />
 
       {/* Hero Section */}
       <section className="hero">
@@ -31,36 +83,14 @@ const HomePage = ({ onNavigate }) => {
         <div className="container">
           <h2 className="section-title">Why Choose AI Study Planner?</h2>
           <div className="benefits-grid">
-            <div className="benefit-card">
-              <div className="benefit-icon">🎯</div>
-              <h3>Personalized Plans</h3>
-              <p>AI-generated study plans tailored specifically to your subject, pace, and difficulty level</p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon">⏱️</div>
-              <h3>Smart Time Management</h3>
-              <p>Optimize your study hours with intelligent scheduling based on your availability</p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon">📈</div>
-              <h3>Track Progress</h3>
-              <p>Monitor your learning journey and stay motivated with visual progress tracking</p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon">🔄</div>
-              <h3>Adaptive Learning</h3>
-              <p>Plans adapt to your learning pace and difficulty preferences for better results</p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon">💡</div>
-              <h3>Expert Insights</h3>
-              <p>Leverage AI-powered insights to identify knowledge gaps and focus on key areas</p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon">🚀</div>
-              <h3>Boost Performance</h3>
-              <p>Scientifically designed study methods to maximize retention and understanding</p>
-            </div>
+            {benefits.map((benefit, index) => (
+              <BenefitCard
+                key={index}
+                icon={benefit.icon}
+                title={benefit.title}
+                description={benefit.description}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -70,22 +100,14 @@ const HomePage = ({ onNavigate }) => {
         <div className="container">
           <h2 className="section-title">Powerful Features</h2>
           <div className="features-grid">
-            <div className="feature-item">
-              <h4>📚 Custom Study Plans</h4>
-              <p>Create unlimited study plans for any subject with customizable difficulty levels</p>
-            </div>
-            <div className="feature-item">
-              <h4>🤖 AI-Powered Recommendations</h4>
-              <p>Get intelligent suggestions based on your study habits and performance</p>
-            </div>
-            <div className="feature-item">
-              <h4>📊 Analytics Dashboard</h4>
-              <p>View detailed analytics of your study sessions and performance metrics</p>
-            </div>
-            <div className="feature-item">
-              <h4>🔐 Secure & Private</h4>
-              <p>Your data is encrypted and secure with enterprise-grade security</p>
-            </div>
+            {features.map((feature, index) => (
+              <FeatureItem
+                key={index}
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+              />
+            ))}
           </div>
         </div>
       </section>

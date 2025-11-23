@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 import '../styles/DashboardPage.css';
+import Navbar from '../components/Navbar';
+import UserItem from '../components/UserItem';
+import CreatePlanForm from '../components/CreatePlanForm';
+import PlanCard from '../components/PlanCard';
+import Alert from '../components/Alert';
 
 const DashboardPage = ({ user, onLogout }) => {
   const [plans, setPlans] = useState([]);
@@ -128,15 +133,7 @@ const DashboardPage = ({ user, onLogout }) => {
   return (
     <div className="dashboard-page">
       {/* Navigation */}
-      <nav className="navbar">
-        <div className="navbar-brand">🎓 AI Study Planner</div>
-        <div className="navbar-links">
-          <span className="user-name">👤 {user.name}</span>
-          <button className="btn btn-logout" onClick={onLogout}>
-            Logout
-          </button>
-        </div>
-      </nav>
+      <Navbar user={user} onLogout={onLogout} />
 
       <div className="container">
         <div className="dashboard-grid">
@@ -145,14 +142,12 @@ const DashboardPage = ({ user, onLogout }) => {
             <h3>Users</h3>
             <div className="users-list">
               {users.map(u => (
-                <button
+                <UserItem
                   key={u._id}
-                  className={`user-item ${formData.userId === u._id ? 'active' : ''}`}
+                  user={u}
+                  isActive={formData.userId === u._id}
                   onClick={() => handleViewUserPlans(u._id)}
-                >
-                  <span>{u.name}</span>
-                  <small>{u.email}</small>
-                </button>
+                />
               ))}
             </div>
           </aside>
@@ -173,84 +168,18 @@ const DashboardPage = ({ user, onLogout }) => {
               </button>
             </div>
 
-            {error && <div className="alert alert-error">{error}</div>}
-            {message && <div className="alert alert-success">{message}</div>}
+            {error && <Alert type="error" message={error} />}
+            {message && <Alert type="success" message={message} />}
 
             {/* Create Plan Form */}
             {showForm && (
-              <div className="card create-plan-card">
-                <h3>Create a New Study Plan</h3>
-                <form onSubmit={handleCreatePlan}>
-                  <div className="form-grid">
-                    <div className="form-group">
-                      <label htmlFor="userId">Select User</label>
-                      <select
-                        id="userId"
-                        name="userId"
-                        value={formData.userId}
-                        onChange={handleChange}
-                        required
-                      >
-                        <option value="">Choose a user...</option>
-                        {users.map(u => (
-                          <option key={u._id} value={u._id}>
-                            {u.name} ({u.email})
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="subject">Subject</label>
-                      <input
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        placeholder="e.g., Mathematics, Biology"
-                        required
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="hoursPerDay">Hours Per Day</label>
-                      <input
-                        type="number"
-                        id="hoursPerDay"
-                        name="hoursPerDay"
-                        value={formData.hoursPerDay}
-                        onChange={handleChange}
-                        min="1"
-                        max="12"
-                        required
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="difficulty">Difficulty Level</label>
-                      <select
-                        id="difficulty"
-                        name="difficulty"
-                        value={formData.difficulty}
-                        onChange={handleChange}
-                      >
-                        <option value="easy">Easy</option>
-                        <option value="medium">Medium</option>
-                        <option value="hard">Hard</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <button 
-                    type="submit" 
-                    className="btn btn-primary btn-large"
-                    disabled={loading}
-                  >
-                    {loading ? 'Creating...' : 'Create Plan'}
-                  </button>
-                </form>
-              </div>
+              <CreatePlanForm
+                formData={formData}
+                users={users}
+                onChange={handleChange}
+                onSubmit={handleCreatePlan}
+                loading={loading}
+              />
             )}
 
             {/* Plans List */}
@@ -263,27 +192,11 @@ const DashboardPage = ({ user, onLogout }) => {
               ) : (
                 <div className="plans-grid">
                   {plans.map(plan => (
-                    <div key={plan._id} className="card plan-card">
-                      <div className="plan-header">
-                        <h4>{plan.subject}</h4>
-                        <span className={`difficulty-badge difficulty-${plan.difficulty}`}>
-                          {plan.difficulty}
-                        </span>
-                      </div>
-                      <div className="plan-details">
-                        <p><strong>Hours Per Day:</strong> {plan.hoursPerDay}</p>
-                        <p><strong>Created:</strong> {new Date(plan.createdAt).toLocaleDateString()}</p>
-                      </div>
-                      <div className="plan-description">
-                        <p>{plan.generatedPlan}</p>
-                      </div>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handleDeletePlan(plan._id)}
-                      >
-                        🗑️ Delete
-                      </button>
-                    </div>
+                    <PlanCard
+                      key={plan._id}
+                      plan={plan}
+                      onDelete={handleDeletePlan}
+                    />
                   ))}
                 </div>
               )}
