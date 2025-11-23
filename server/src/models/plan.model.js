@@ -15,6 +15,10 @@ const planSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    howManyDays: {
+      type: Number,
+      required: true,
+    },
     difficulty: {
       type: String,
       enum: ["easy", "medium", "hard"],

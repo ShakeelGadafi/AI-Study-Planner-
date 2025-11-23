@@ -13,6 +13,7 @@ const PlanCard = ({ plan, onDelete, onClick }) => {
         </span>
       </div>
       <div className="plan-details">
+        <p><strong>How Many Days:</strong> {plan.howManyDays || 'N/A'}</p>
         <p><strong>Hours Per Day:</strong> {plan.hoursPerDay}</p>
         <p><strong>Created:</strong> {new Date(plan.createdAt).toLocaleDateString()}</p>
       </div>

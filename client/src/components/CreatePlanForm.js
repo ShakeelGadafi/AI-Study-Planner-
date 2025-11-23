@@ -4,23 +4,6 @@ const CreatePlanForm = ({ formData, users, onChange, onSubmit, loading }) => {
       <h3>Create a New Study Plan</h3>
       <form onSubmit={onSubmit}>
         <div className="form-grid">
-          {/* <div className="form-group">
-            <label htmlFor="userId">Select User</label>
-            <select
-              id="userId"
-              name="userId"
-              value={formData.userId}
-              onChange={onChange}
-              required
-            >
-              <option value="">Choose a user...</option>
-              {users.map(u => (
-                <option key={u._id} value={u._id}>
-                  {u.name} ({u.email})
-                </option>
-              ))}
-            </select>
-          </div> */}
 
           <div className="form-group">
             <label htmlFor="subject">Subject</label>
@@ -48,6 +31,19 @@ const CreatePlanForm = ({ formData, users, onChange, onSubmit, loading }) => {
               required
             />
           </div>
+
+          <div className="form-group">
+            <label htmlFor="howManyDays">How Many Days</label>
+            <input
+              type="number"
+              id="howManyDays"
+              name="howManyDays"
+              value={formData.howManyDays}
+              onChange={onChange}
+              required
+            />
+          </div>
+
 
           <div className="form-group">
             <label htmlFor="difficulty">Difficulty Level</label>

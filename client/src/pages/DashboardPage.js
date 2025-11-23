@@ -15,6 +15,7 @@ const DashboardPage = ({ user, onLogout }) => {
     userId: '',
     subject: '',
     hoursPerDay: 2,
+    howManyDays: 7,
     difficulty: 'medium',
   });
   const [loading, setLoading] = useState(false);
@@ -54,7 +55,7 @@ const DashboardPage = ({ user, onLogout }) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'hoursPerDay' ? Number(value) : value
+      [name]: (name === 'hoursPerDay' || name === 'howManyDays') ? Number(value) : value
     }));
   };
 
@@ -87,6 +88,7 @@ const DashboardPage = ({ user, onLogout }) => {
         userId: user.id,
         subject: '',
         hoursPerDay: 2,
+        howManyDays: 7,
         difficulty: 'medium',
       });
       setShowForm(false);

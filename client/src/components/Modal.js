@@ -23,6 +23,10 @@ const Modal = ({ isOpen, plan, onClose }) => {
               <strong>Hours Per Day:</strong>
               <span>{plan.hoursPerDay} hours</span>
             </div>
+             <div className="info-item">
+              <strong>How Many Days:</strong>
+              <span>{plan.howManyDays || 'N/A'} days</span>
+            </div>
             <div className="info-item">
               <strong>Created:</strong>
               <span>{new Date(plan.createdAt).toLocaleDateString()}</span>

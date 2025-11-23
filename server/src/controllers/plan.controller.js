@@ -5,9 +5,12 @@ import mongoose from "mongoose";
 // CREATE PLAN
 export const createPlan = async (req, res) => {
   try {
-    const { userId, subject, hoursPerDay, difficulty } = req.body;
+    const { userId, subject, hoursPerDay, howManyDays, difficulty } = req.body;
 
-    if (!userId || !subject || !hoursPerDay) {
+    console.log('Request body:', req.body);
+    console.log('howManyDays value:', howManyDays, 'type:', typeof howManyDays);
+
+    if (!userId || !subject || !hoursPerDay || !howManyDays) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
@@ -23,6 +26,7 @@ export const createPlan = async (req, res) => {
       userId: new mongoose.Types.ObjectId(userId),
       subject,
       hoursPerDay,
+      howManyDays,
       difficulty,
       generatedPlan: planText,
     });
