@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/DashboardPage.css';
 import Navbar from '../components/Navbar';
 import PlanCard from '../components/PlanCard';
@@ -7,6 +8,7 @@ import Alert from '../components/Alert';
 import CreatePlanForm from '../components/CreatePlanForm';
 
 const DashboardPage = ({ user, onLogout }) => {
+  const navigate = useNavigate();
   const [plans, setPlans] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -41,6 +43,11 @@ const DashboardPage = ({ user, onLogout }) => {
     } catch (err) {
       console.error('Error fetching plans:', err);
     }
+  };
+
+  const handleLogoutClick = () => {
+    onLogout();
+    navigate('/home');
   };
 
   const handleChange = (e) => {
@@ -121,7 +128,7 @@ const DashboardPage = ({ user, onLogout }) => {
   return (
     <div className="dashboard-page">
       {/* Navigation */}
-      <Navbar user={user} onLogout={onLogout} />
+      <Navbar user={user} onLogout={handleLogoutClick} />
 
       <div className="container dashboard-content">
         {/* Main Content */}

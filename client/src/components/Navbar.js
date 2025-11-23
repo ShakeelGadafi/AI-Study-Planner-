@@ -1,9 +1,11 @@
-const Navbar = ({ user, onLogout, onNavigate, onGetStarted }) => {
+import { Link } from 'react-router-dom';
+
+const Navbar = ({ user, onLogout }) => {
   return (
     <nav className="navbar">
-      <div className="navbar-brand" onClick={() => onNavigate('home')} style={{ cursor: 'pointer' }}>
+      <Link to="/home" className="navbar-brand" style={{ textDecoration: 'none', color: 'inherit' }}>
         🎓 AI Study Planner
-      </div>
+      </Link>
       <div className="navbar-links">
         {user ? (
           <>
@@ -13,9 +15,9 @@ const Navbar = ({ user, onLogout, onNavigate, onGetStarted }) => {
             </button>
           </>
         ) : (
-          <button className="btn btn-primary" onClick={onGetStarted}>
+          <Link to="/auth" className="btn btn-primary">
             Get Started
-          </button>
+          </Link>
         )}
       </div>
     </nav>

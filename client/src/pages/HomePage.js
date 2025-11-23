@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom';
 import '../styles/HomePage.css';
 import Navbar from '../components/Navbar';
 import BenefitCard from '../components/BenefitCard';
 import FeatureItem from '../components/FeatureItem';
 
-const HomePage = ({ onNavigate }) => {
+const HomePage = () => {
   const benefits = [
     {
       icon: '🎯',
@@ -63,7 +64,7 @@ const HomePage = ({ onNavigate }) => {
   return (
     <div className="home-page">
       {/* Navigation */}
-      <Navbar onNavigate={onNavigate} onGetStarted={() => onNavigate('auth')} />
+      <Navbar />
 
       {/* Hero Section */}
       <section className="hero">
@@ -71,9 +72,9 @@ const HomePage = ({ onNavigate }) => {
           <div className="hero-content">
             <h1>Master Your Studies with AI</h1>
             <p>Personalized study plans tailored to your learning style and goals</p>
-            <button className="btn btn-primary btn-large" onClick={() => onNavigate('auth')}>
+            <Link to="/auth" className="btn btn-primary btn-large">
               Start Planning Your Study
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -117,9 +118,9 @@ const HomePage = ({ onNavigate }) => {
         <div className="container">
           <h2>Ready to Transform Your Learning?</h2>
           <p>Join thousands of students improving their grades with AI Study Planner</p>
-          <button className="btn btn-primary btn-large" onClick={() => onNavigate('auth')}>
+          <Link to="/auth" className="btn btn-primary btn-large">
             Start Your Free Trial Today
-          </button>
+          </Link>
         </div>
       </section>
 

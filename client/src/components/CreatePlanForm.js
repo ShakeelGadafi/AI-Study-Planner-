@@ -4,7 +4,7 @@ const CreatePlanForm = ({ formData, users, onChange, onSubmit, loading }) => {
       <h3>Create a New Study Plan</h3>
       <form onSubmit={onSubmit}>
         <div className="form-grid">
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="userId">Select User</label>
             <select
               id="userId"
@@ -20,7 +20,7 @@ const CreatePlanForm = ({ formData, users, onChange, onSubmit, loading }) => {
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
 
           <div className="form-group">
             <label htmlFor="subject">Subject</label>

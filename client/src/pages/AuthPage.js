@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/AuthPage.css';
 import Navbar from '../components/Navbar';
 import AuthForm from '../components/AuthForm';
 import Alert from '../components/Alert';
 
-const AuthPage = ({ onLogin, onNavigate }) => {
+const AuthPage = ({ onLogin }) => {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
@@ -59,6 +61,7 @@ const AuthPage = ({ onLogin, onNavigate }) => {
         { id: data.user.id, name: data.user.name, email: data.user.email },
         data.token
       );
+      navigate('/dashboard');
     } catch (err) {
       setError(err.message || 'An error occurred');
       setLoading(false);
@@ -67,7 +70,7 @@ const AuthPage = ({ onLogin, onNavigate }) => {
 
   return (
     <div className="auth-page">
-      <Navbar onNavigate={onNavigate} onGetStarted={() => onNavigate('home')} />
+      <Navbar />
 
       <div className="auth-container">
         {error && <Alert type="error" message={error} />}
