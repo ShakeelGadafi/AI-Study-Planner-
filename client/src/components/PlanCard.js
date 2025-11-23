@@ -1,6 +1,11 @@
-const PlanCard = ({ plan, onDelete }) => {
+const PlanCard = ({ plan, onDelete, onClick }) => {
   return (
-    <div className="card plan-card">
+    <div 
+      className="card plan-card clickable-plan" 
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+    >
       <div className="plan-header">
         <h4>{plan.subject}</h4>
         <span className={`difficulty-badge difficulty-${plan.difficulty}`}>
@@ -14,12 +19,18 @@ const PlanCard = ({ plan, onDelete }) => {
       <div className="plan-description">
         <p>{plan.generatedPlan}</p>
       </div>
-      <button
-        className="btn btn-danger"
-        onClick={() => onDelete(plan._id)}
-      >
-        🗑️ Delete
-      </button>
+      <div className="plan-actions">
+        <button
+          className="btn btn-danger"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(plan._id);
+          }}
+        >
+          🗑️ Delete
+        </button>
+        <span className="view-details">Click to view full plan →</span>
+      </div>
     </div>
   );
 };

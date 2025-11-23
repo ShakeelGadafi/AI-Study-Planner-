@@ -265,3 +265,40 @@
     font-size: 0.9rem;
   }
 }
+
+/* New Dashboard Layout */
+.dashboard-content {
+  padding: 2rem 0;
+  min-height: calc(100vh - 80px);
+}
+
+.dashboard-main-full {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Clickable Plan Card */
+.clickable-plan {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.clickable-plan:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+}
+
+.plan-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.view-details {
+  font-size: 0.85rem;
+  color: #667eea;
+  font-weight: 600;
+  opacity: 0.8;
+}
