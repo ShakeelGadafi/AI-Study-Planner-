@@ -1,14 +1,13 @@
 import { Plan } from "../models/plan.model.js";
-import { generateFakePlan } from "../utils/aiHelper.js";
+import { generatePlanWithAI } from "../utils/aiHelper.js";
 import mongoose from "mongoose";
 
 // CREATE PLAN
 export const createPlan = async (req, res) => {
   try {
-    const { userId, subject, hoursPerDay, howManyDays, difficulty } = req.body;
+    const { userId, subject, hoursPerDay, howManyDays, difficulty, topics } = req.body;
 
     console.log('Request body:', req.body);
-    console.log('howManyDays value:', howManyDays, 'type:', typeof howManyDays);
 
     if (!userId || !subject || !hoursPerDay || !howManyDays) {
       return res.status(400).json({ message: "Missing required fields" });
@@ -19,8 +18,8 @@ export const createPlan = async (req, res) => {
       return res.status(400).json({ message: "Invalid userId format" });
     }
 
-    // Generate fake AI study plan
-    const planText = generateFakePlan(subject, hoursPerDay, difficulty);
+    // Generate AI study plan
+    const planText = await generatePlanWithAI(subject, hoursPerDay, howManyDays, difficulty, topics);
 
     const newPlan = await Plan.create({
       userId: new mongoose.Types.ObjectId(userId),
@@ -28,6 +27,7 @@ export const createPlan = async (req, res) => {
       hoursPerDay,
       howManyDays,
       difficulty,
+      topics: topics || "", 
       generatedPlan: planText,
     });
 

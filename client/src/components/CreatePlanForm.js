@@ -58,6 +58,18 @@ const CreatePlanForm = ({ formData, users, onChange, onSubmit, loading }) => {
               <option value="hard">Hard</option>
             </select>
           </div>
+
+          <div className="form-group full-width">
+            <label htmlFor="topics">Specific Topics (Optional)</label>
+            <textarea
+              id="topics"
+              name="topics"
+              value={formData.topics}
+              onChange={onChange}
+              placeholder="e.g., Algebra, Thermodynamics, Photosynthesis..."
+              rows="3"
+            />
+          </div>
         </div>
 
         <button 
