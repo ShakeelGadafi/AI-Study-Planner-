@@ -17,6 +17,7 @@ const DashboardPage = ({ user, onLogout }) => {
     hoursPerDay: 2,
     howManyDays: 7,
     difficulty: 'medium',
+    topics: '',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');

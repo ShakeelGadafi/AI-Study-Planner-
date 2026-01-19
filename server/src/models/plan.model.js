@@ -24,6 +24,10 @@ const planSchema = new mongoose.Schema(
       enum: ["easy", "medium", "hard"],
       default: "medium",
     },
+    topics: {
+      type: String,
+      required: false,
+    },
     generatedPlan: {
       type: String,
       required: true,
